@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sancta Victoria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=IM+Fell+English+SC&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap">
+
+  <script type="module" crossorigin src="./assets/index-dJ1BsYSZ.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-BJqzuH0Z.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="boilFire" x="-10%" y="-10%" width="120%" height="120%">
+    <feTurbulence id="turbFire" type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="1" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <!-- Torn, uneven edges for parchment sheets (cards and the board). Static: parchment doesn't boil. -->
+  <filter id="deckle" x="-4%" y="-4%" width="108%" height="108%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.045 0.06" numOctaves="4" seed="11" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="9" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <filter id="boil" x="-5%" y="-5%" width="110%" height="110%">
+    <feTurbulence id="turb" type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="1" result="n"/>
+    <feDisplacementMap id="disp" in="SourceGraphic" in2="n" scale="1.4" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+
+<main class="screen" id="screen">
+  <header class="head">
+    <h1 class="visually-hidden">Sancta Victoria</h1>
+    <div class="turn">
+      <span>Turn <b id="turn">1</b></span>
+      <span><span id="moves-label">Moves </span><b id="moves">Your turn</b></span>
+      <span class="guard" id="guard" hidden></span>
+      <button class="end-turn" id="end-turn">End turn</button>
+    </div>
+  </header>
+
+  <!-- Battle line: heroes face right, foes face left. Figures are drawn from state by src/view/battle-view.ts. -->
+  <section class="stage" id="stage" aria-label="Battle line">
+    <div class="scenery" aria-hidden="true"></div>
+    <div class="mist mist-back" aria-hidden="true"></div>
+    <div class="wind" id="wind" aria-hidden="true"></div>
+    <div class="ground" aria-hidden="true"></div>
+    <div class="line party" id="line-company"></div>
+    <div class="line foes" id="line-foe"></div>
+    <div class="mist mist-front" aria-hidden="true"></div>
+  </section>
+
+  <aside class="panel party" aria-label="The company">
+    <h2 class="panel-label">The Company</h2>
+    <div class="pools" id="pools-company" aria-label="The Company's mana"></div>
+    <div class="panel" id="cards-company"></div>
+  </aside>
+
+  <div class="board-cell">
+    <div class="board-wrap parchment" id="board-wrap">
+      <div class="board" id="board" role="grid" aria-label="Gem board, 8 by 8"></div>
+      <div class="banner" id="banner" hidden>
+        <p class="banner-title"></p>
+        <p class="banner-text"></p>
+        <button class="end-turn" id="again">Fight again</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="hand-wrap" id="hand-wrap" hidden>
+    <div class="hand-bar"><span>Deck <b id="deck-count">0</b></span><span>Discard <b id="discard-count">0</b></span></div>
+    <div class="hand" id="hand" aria-label="Your hand"></div>
+  </div>
+
+  <aside class="panel foes" aria-label="The foe">
+    <h2 class="panel-label">The Foe</h2>
+    <div class="pools" id="pools-foe" aria-label="The Foe's mana"></div>
+    <div class="panel" id="cards-foe"></div>
+  </aside>
+
+  <button class="dev-toggle" id="dev-toggle" aria-controls="dev" aria-expanded="false" title="Options">
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12Z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg>
+  </button>
+  <div class="dev" id="dev">
+    <span class="seg" role="group" aria-label="Page texture">
+      <button data-tex="vellum">Vellum</button>
+      <button data-tex="parchment">Aged parchment</button>
+      <button data-tex="palimpsest">Palimpsest</button>
+      <button data-tex="laid">Laid paper</button>
+      <button data-tex="flat">Flat</button>
+    </span>
+    <label><input type="checkbox" id="vignette-toggle" checked> Vignette</label>
+    <label><input type="checkbox" id="boil-toggle" checked> Line boil</label>
+    <span class="dev-group" id="scenery-controls" role="group" aria-label="Scenery">
+      <b>Scenery</b>
+      <label>Opacity <input type="range" data-token="--scenery-opacity" min="0" max="1" step="0.05"> <output></output></label>
+      <label>Ink <input type="range" data-token="--scenery-contrast" min="0.2" max="1.4" step="0.05"> <output></output></label>
+      <label>Colour <input type="range" data-token="--scenery-saturation" min="0" max="1.5" step="0.05"> <output></output></label>
+      <label>Size <input type="range" data-token="--scenery-size" data-unit="%" min="100" max="260" step="5"> <output></output></label>
+      <label>Position <input type="range" data-token="--scenery-x" data-unit="%" min="0" max="100" step="1"> <output></output></label>
+      <label>Ground <input type="range" data-token="--ground-opacity" min="0" max="1" step="0.05"> <output></output></label>
+      <label>Haze <input type="range" data-token="--mist-back-opacity" min="0" max="1" step="0.05"> <output></output></label>
+      <label>Ground mist <input type="range" data-token="--mist-front-opacity" min="0" max="1" step="0.05"> <output></output></label>
+      <label>Wind <input type="range" data-token="--wind-opacity" min="0" max="1" step="0.05"> <output></output></label>
+      <label>Drift <input type="range" data-token="--mist-drift-s" data-unit="s" min="20" max="240" step="5"> <output></output></label>
+      <button class="btn" data-scene-reset>Reset</button>
+    </span>
+    <label title="Sound effects volume">Effects <input type="range" id="sfx-volume" min="0" max="1" step="0.05"></label>
+    <label title="Music volume">Music <input type="range" id="music-volume" min="0" max="1" step="0.05"></label>
+    <label title="How deep the idle bob dips">Bob <input type="range" id="bob-depth" min="0" max="20" step="1"> <output id="bob-depth-out"></output></label>
+    <label title="How long one breath takes">Breath <input type="range" id="bob-speed" min="150" max="1000" step="10"> <output id="bob-speed-out"></output></label>
+    <span class="seg" role="group" aria-label="Rules">
+      <button data-rules="phases">Phases</button>
+      <button data-rules="pq">Puzzle Quest</button>
+      <button data-rules="telegraph">Telegraph</button>
+      <button data-rules="cards">Cards</button>
+    </span>
+    <span class="seg" role="group" aria-label="Neutral gems">
+      <button data-neutral="none">No neutrals</button>
+      <button data-neutral="stones">Stones</button>
+    </span>
+    <span>Seed <output id="seed"></output></span>
+    <button class="btn" id="new-fight">New fight</button>
+    <button class="btn" id="hint">Hint</button>
+    <span class="tally" title="Gems matched"><img src="./assets/gems/argent.png" alt="argent"> <output id="tally-argent">0</output></span><span class="tally" title="Gems matched"><img src="./assets/gems/azure.png" alt="azure"> <output id="tally-azure">0</output></span><span class="tally" title="Gems matched"><img src="./assets/gems/gules.png" alt="gules"> <output id="tally-gules">0</output></span><span class="tally" title="Gems matched"><img src="./assets/gems/vert.png" alt="vert"> <output id="tally-vert">0</output></span><span class="tally" title="Gems matched"><img src="./assets/gems/coin.png" alt="or"> <output id="tally-or">0</output></span><span class="tally" title="Gems matched"><img src="./assets/gems/skull.png" alt="skull"> <output id="tally-skull">0</output></span><span class="tally" title="Gems matched"><img src="./assets/gems/stone.png" alt="stone"> <output id="tally-stone">0</output></span>
+  </div>
+</main>
+</body>
+</html>
