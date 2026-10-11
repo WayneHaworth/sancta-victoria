@@ -8,8 +8,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=IM+Fell+English+SC&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap">
 
-  <script type="module" crossorigin src="./assets/index-C6uDJSAv.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-MPGoA83L.css">
+  <script type="module" crossorigin src="./assets/index-HYeZeQLB.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-CnHiteQ7.css">
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -79,6 +79,7 @@
   </aside>
 
   <div class="toast" id="toast" role="status" hidden></div>
+  <div class="muster" id="muster" role="dialog" aria-label="Choose your Company" hidden></div>
 
   <button class="dev-toggle" id="dev-toggle" aria-controls="dev" aria-expanded="false" title="Options">
     <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12Z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg>
@@ -111,6 +112,10 @@
     <label title="Music volume">Music <input type="range" id="music-volume" min="0" max="1" step="0.05"></label>
     <label title="How deep the idle bob dips">Bob <input type="range" id="bob-depth" min="0" max="20" step="1"> <output id="bob-depth-out"></output></label>
     <label title="How long one breath takes">Breath <input type="range" id="bob-speed" min="150" max="1000" step="10"> <output id="bob-speed-out"></output></label>
+    <span class="seg" role="group" aria-label="Fight">
+      <button data-fight="dragon">The Dragon</button>
+      <button data-fight="bishop">The Ape Bishop</button>
+    </span>
     <span class="seg" role="group" aria-label="Rules">
       <button data-rules="phases">Phases</button>
       <button data-rules="pq">Puzzle Quest</button>
