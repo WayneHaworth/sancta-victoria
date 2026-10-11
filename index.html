@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Sancta Victoria</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=IM+Fell+English+SC&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap">
 
-  <script type="module" crossorigin src="./assets/index-dJ1BsYSZ.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-BJqzuH0Z.css">
+  <script type="module" crossorigin src="./assets/index-CKIlyWA5.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-4aWuWzN6.css">
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -73,10 +73,12 @@
   </div>
 
   <aside class="panel foes" aria-label="The foe">
-    <h2 class="panel-label">The Foe</h2>
+    <h2 class="panel-label" id="foe-label">The Foe</h2>
     <div class="pools" id="pools-foe" aria-label="The Foe's mana"></div>
     <div class="panel" id="cards-foe"></div>
   </aside>
+
+  <div class="toast" id="toast" role="status" hidden></div>
 
   <button class="dev-toggle" id="dev-toggle" aria-controls="dev" aria-expanded="false" title="Options">
     <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12Z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg>
@@ -124,6 +126,6 @@
     <button class="btn" id="hint">Hint</button>
     <span class="tally" title="Gems matched"><img src="./assets/gems/argent.png" alt="argent"> <output id="tally-argent">0</output></span><span class="tally" title="Gems matched"><img src="./assets/gems/azure.png" alt="azure"> <output id="tally-azure">0</output></span><span class="tally" title="Gems matched"><img src="./assets/gems/gules.png" alt="gules"> <output id="tally-gules">0</output></span><span class="tally" title="Gems matched"><img src="./assets/gems/vert.png" alt="vert"> <output id="tally-vert">0</output></span><span class="tally" title="Gems matched"><img src="./assets/gems/coin.png" alt="or"> <output id="tally-or">0</output></span><span class="tally" title="Gems matched"><img src="./assets/gems/skull.png" alt="skull"> <output id="tally-skull">0</output></span><span class="tally" title="Gems matched"><img src="./assets/gems/stone.png" alt="stone"> <output id="tally-stone">0</output></span>
   </div>
-</main>
+</main>
 </body>
 </html>
